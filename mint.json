@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "LingoX",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -23,16 +23,19 @@
     "url": "https://www.lingox.ai/contact"
   },
   "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
+   
   ],
   "anchors": [
     {
       "name": "Request A Demo",
       "icon": "book-open-cover",
       "url": "https://www.lingox.ai/contact"
+    },
+     {
+      "name": "API Reference",
+      "openapi": "./api-reference/openapi.json",
+      "url": "api-reference",
+      "icon": "square-terminal"
     }
   ],
   "navigation": [
