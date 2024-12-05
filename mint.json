@@ -20,9 +20,11 @@
       "name": "Support",
       "url": "mailto:hi@mintlify.com"
     }
-  ],
+  ], 
   "topbarCtaButton": {
-   },
+    "name": "Request Demo",
+    "url": "https://www.lingox.ai/contact"
+  },
   "tabs": [
     {
       "name": "API Reference",
@@ -31,9 +33,9 @@
   ],
   "anchors": [
     {
-      "name": "Request Demo",
+      "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "https://www.lingox.ai/contact"
+      "url": "https://mintlify.com/docs"
     }
   ],
   "navigation": [
