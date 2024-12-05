@@ -15,6 +15,7 @@
         },
         "responses": { "201": { "description": "" } },
         "security": [{ "bearer": [] }],
+        "summary": "Create a new app",
         "tags": ["App"]
       }
     },
@@ -24,7 +25,7 @@
         "parameters": [],
         "responses": { "200": { "description": "" } },
         "security": [{ "bearer": [] }],
-        "summary": "List user apps",
+        "summary": "List all apps",
         "tags": ["App"]
       }
     },
