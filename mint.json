@@ -16,10 +16,7 @@
     }
   },
   "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
-    }
+    
   ], 
   "topbarCtaButton": {
     "name": "Request Demo",
@@ -33,9 +30,9 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
+      "name": "Request A Demo",
       "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "url": "https://www.lingox.ai/contact"
     }
   ],
   "navigation": [
