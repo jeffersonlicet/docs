@@ -22,9 +22,7 @@
     }
   ],
   "topbarCtaButton": {
-    "name": "Request Demo",
-    "url": "https://www.lingox.ai/contact"
-  },
+   },
   "tabs": [
     {
       "name": "API Reference",
@@ -33,9 +31,9 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
+      "name": "Request Demo",
       "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "url": "https://www.lingox.ai/contact"
     }
   ],
   "navigation": [
