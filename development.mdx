@@ -1,103 +1,244 @@
 ---
-title: 'Development'
-description: 'How to integrate our API'
+title: "Development"
+description: "How to integrate our API"
 ---
 
-<Info>
-  **Prerequisite**: Please install Node.js (version 19 or higher) before proceeding.
-</Info>
+# LingoX API Documentation
 
-Follow these steps to install and run Mintlify on your operating system:
+Welcome to the LingoX API documentation. This API provides endpoints to create apps, translate text, manage authentication, and more.
 
-**Step 1**: Install Mintlify:
+***
 
-<CodeGroup>
-  ```bash npm
-  npm i -g mintlify
-  ```
+## Features
 
-  ```bash yarn
-  yarn global add mintlify
-  ```
-</CodeGroup>
+* Create and manage apps.
 
-**Step 2**: Navigate to the docs directory (where the `mint.json` file is located) and execute the following command:
+* Immediate and queued text translations.
 
-```bash
-mintlify dev
-```
+* Secure user authentication.
 
-A local preview of your documentation will be available at `http://localhost:3000`.
+***
 
-### Custom Ports
+## Authentication
 
-By default, Mintlify uses port 3000. You can customize the port Mintlify runs on by using the `--port` flag. To run Mintlify on port 3333, for instance, use this command:
+This API uses Bearer tokens for secure communication. Include the token in the `Authorization` header:
 
 ```bash
-mintlify dev --port 3333
+Authorization: Bearer <your_token>
 ```
 
-If you attempt to run Mintlify on a port that's already in use, it will use the next available port:
-
-```md
-Port 3000 is already in use. Trying 3001 instead.
-```
-
-## Mintlify Versions
-
-Please note that each CLI release is associated with a specific version of Mintlify. If your local website doesn't align with the production version, please update the CLI:
-
-<CodeGroup>
-  ```bash npm
-  npm i -g mintlify@latest
-  ```
-
-  ```bash yarn
-  yarn global upgrade mintlify
-  ```
-</CodeGroup>
-
-## Validating Links
-
-The CLI can assist with validating reference links made in your documentation. To identify any broken links, use the following command:
+For translation endpoints, provide the `x-api-key` and `x-api-secret` headers, you will get it after creating your first app.
 
 ```bash
-mintlify broken-links
+x-api-key: <your_api_key>
+x-api-secret: <your_api_secret>
 ```
 
-## Deployment
+***
 
-<Tip>
-  Unlimited editors available under the [Pro
-  Plan](https://mintlify.com/pricing) and above.
-</Tip>
+## Endpoints
 
-If the deployment is successful, you should see the following:
+### **Auth Endpoints**
 
-<Frame>
-  <img src="/images/checks-passed.png" style={{ borderRadius: '0.5rem' }} />
-</Frame>
+#### **Login User**
 
-## Code Formatting
+**POST** `/auth/login`
+Login a user to receive a Bearer token.
 
-We suggest using extensions on your IDE to recognize and format MDX. If you're a VSCode user, consider the [MDX VSCode extension](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx) for syntax highlighting, and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) for code formatting.
+**JavaScript Example:**
 
-## Troubleshooting
+```javascript
+const endpoint = 'https://lingox-a52b18533193.herokuapp.com';
 
-<AccordionGroup>
-  <Accordion title="Error: Could not load the &#x22;sharp&#x22; module using the darwin-arm64 runtime">
-    This may be due to an outdated version of node. Try the following:
+async function loginUser() {
+  const response = await fetch(`${endpoint}/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: 'user@example.com', password: '123456' }),
+  });
+  
+  const data = await response.json();
+  console.log('Token:', data.token);
+}
 
-    1. Remove the currently-installed version of mintlify: `npm remove -g mintlify`
+loginUser()
+```
 
-    2. Upgrade to Node v19 or higher.
+***
 
-    3. Reinstall mintlify: `npm install -g mintlify`
-  </Accordion>
+#### **Sign Up**
 
-  <Accordion title="Issue: Encountering an unknown error">
-    Solution: Go to the root of your device and delete the \~/.mintlify folder. Afterwards, run `mintlify dev` again.
-  </Accordion>
-</AccordionGroup>
+**POST** `/auth/signup`
+Register a new user.
 
-Curious about what changed in the CLI version? [Check out the CLI changelog.](https://www.npmjs.com/package/mintlify?activeTab=versions)
+**JavaScript Example:**
+
+```javascript
+const endpoint = 'https://lingox-a52b18533193.herokuapp.com';
+
+async function signUpUser() {
+  const response = await fetch(`${endpoint}/auth/signup`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: 'user@example.com', password: '123' }),
+  });
+  const data = await response.json();
+  console.log('Message:', data.message);
+}
+
+signUpUser();
+```
+
+***
+
+#### **Get Profile**
+
+**GET** `/auth/profile`
+Retrieve the profile of the authenticated user.
+
+**JavaScript Example:**
+
+```javascript
+const endpoint = 'https://lingox-a52b18533193.herokuapp.com';
+
+async function getUserProfile() {
+  const response = await fetch(`${endpoint}/auth/profile`, {
+    method: 'GET',
+    headers: { Authorization: 'Bearer your_token' },
+  });
+  
+  const data = await response.json();
+}
+
+getUserProfile();}
+```
+
+***
+
+### **App Management**
+
+#### **Create App**
+
+**POST** `/create`
+Create a new app.
+
+**JavaScript Example:**
+
+```javascript
+const endpoint = 'https://lingox-a52b18533193.herokuapp.com';
+
+async function createApp() {
+  const response = await fetch(`${endpoint}/create`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer your_token',
+    },
+    body: JSON.stringify({
+      name: 'My App',
+      url: 'https://example.com',
+      webHookUrl: 'https://example.com/webhook',
+    }),
+  });
+  
+  const data = await response.json();
+  console.log('Created App:', data);
+}
+
+createApp();
+```
+
+***
+
+#### **List Apps**
+
+**GET** `/list`
+Retrieve all apps associated with the user.
+
+**JavaScript Example:**
+
+```javascript
+const endpoint = 'https://lingox-a52b18533193.herokuapp.com';
+
+async function listApps() {
+  const response = await fetch(`${endpoint}/list`, {
+    method: 'GET',
+    headers: { Authorization: 'Bearer your_token' },
+  });
+  
+  const data = await response.json();
+  console.log('Apps:', data);
+}
+
+listApps();
+```
+
+***
+
+### **Translation Endpoints**
+
+#### **Immediate Translation**
+
+**POST** `/translateText`
+Request immediate text translation.
+Note: The `from` field is optional. If not provided, the model will automatically detect the source language.
+
+**JavaScript Example:**
+
+```javascript
+const endpoint = 'https://lingox-a52b18533193.herokuapp.com';
+
+async function translateText() {
+  const response = await fetch(`${endpoint}/translateText`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': 'your_api_key',
+      'x-api-secret': 'your_api_secret',
+    },
+    body: JSON.stringify({
+      text: 'Hello, world!',
+      to: 'es',
+    }),
+  });
+  const data = await response.json();
+  console.log('Translated Text:', data.translatedText);
+}
+
+translateText();
+```
+
+***
+
+#### **Queued Translation**
+
+**POST** `/queue`
+Request queued text translation.
+
+**JavaScript Example:**
+
+```javascript
+const endpoint = 'https://lingox-a52b18533193.herokuapp.com';
+
+async function queueTranslation() {
+  const response = await fetch(`${endpoint}/queue`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': 'your_api_key',
+      'x-api-secret': 'your_api_secret',
+    },
+    body: JSON.stringify({
+      text: 'Good morning',
+      from: 'en',
+      to: 'fr',
+    }),
+  });
+  
+  const data = await response.json();
+}
+
+queueTranslation();
+```
+
+***
